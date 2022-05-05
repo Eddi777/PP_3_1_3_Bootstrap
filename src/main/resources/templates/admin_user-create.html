@@ -1,17 +1,15 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns: th="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>Create user</title>
 </head>
 <body>
 <h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
 <form th:action="@{/logout}" method="post">
     <input type="submit" value="Sign Out"/>
 </form>
-<form action="#" th:action="@{/user/user-update}" th:object="${user}" method="post">
-    <br>
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="Id">
+<form action="#" th:action="@{/admin/user-create}" th:object="${user}" method="post">
     <br>
     <label for="name">First name</label>
     <input type="text" th:field="*{name}" id="name" placeholder="Name">
@@ -34,8 +32,7 @@
     <label for="roles">Roles</label>
     <input type="text" th:field="*{roles}" id="roles" placeholder="Roles">
     <br>
-
-    <!--input type="submit" value="Update data"-->
+    <input type="submit" value="Create User">
 </form>
 </body>
 </html>
