@@ -1,25 +1,43 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Login PAGE </title>
+<head th:replace="common :: common_header(~{::title},~{::link})">
+    <title>Login PAGE</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/cs/fragment.css}">
 </head>
-<body>
-<div th:if="${param.error}">
-    Invalid username and password.
+
+<body class="p-3 mb-2 bg-light text-dark">
+<div class="container w-100">
+    <div class="row">
+        <br>
+        <div class="col align-self center">
+            <div th:if="${param.error}">
+                Invalid username and password
+            </div>
+            <div th:if="${param.logout}">
+                You have been logged out
+            </div>
+            <h3 class="h3 mt-5 mb-3 fw-normal mb-2"><strong> Please sign in </strong></h3>
+            <form th:action="@{/login}" method="post" class="col-cm-3">
+                <div class="form-group-row" style="width:300px" >
+                    <div>
+                        <input class="w-100 form-control" type="text" name="username" id="username" placeholder="Email adress"/>
+                    </div>
+                    <div>
+                        <input class="w-100 form-control" type="password" name="password" placeholder="Password"/>
+                    </div>
+                    <div class="mt-1">
+<!--                        <input type="submit" value="Sign in"/>-->
+                        <button class="w-100 btn btn-primary btn-sm" type="submit">Sign in</button>
+                    </div>
+                </div>
+            </form>
+<!--            <p class="mt-1"> Click <a href="/registration">here</a> to add new user </p>-->
+        </div>
+    </div>
+    <div th:insert="~{common :: bootstrap}"></div>
 </div>
-<div th:if="${param.logout}">
-    You have been logged out.
-</div>
-Login PAGE
-<form th:action="@{/login}" method="post">
-    <br>
-    <div><label> User Name : <input type="text" name="username"/> </label></div>
-    <br>
-    <div><label> Password: <input type="password" name="password"/> </label></div>
-    <br>
-    <div><input type="submit" value="Sign In"/></div>
-</form>
-<p> Click <a href="/registration">here</a> to add new user </p>
 </body>
 </html>
+

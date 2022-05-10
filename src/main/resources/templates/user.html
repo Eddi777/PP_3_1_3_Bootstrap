@@ -1,41 +1,53 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
-<head>
-    <title>Spring Security Example</title>
+<head th:replace="common :: common_header(~{::title},~{::link})">
+    <title>User page</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <title>User page</title>
 </head>
-<body>
-<h2 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h2>
-<form th:action="@{/logout}" method="post">
-    <input type="submit" value="Sign Out"/>
-</form>
-<form action="#" th:action="@{/user/user-update}" th:object="${user}" method="post">
-    <br>
-    <label for="id">ID</label>
-    <input readonly type="number" th:field="*{id}" id="id" placeholder="Id">
-    <br>
-    <label for="name">First name</label>
-    <input type="text" th:field="*{name}" id="name" placeholder="Name">
-    <br>
-    <label for="lastname">Last name</label>
-    <input type="text" th:field="*{lastname}" id="lastname" placeholder="Last Name">
-    <br>
-    <label for="age">Age</label>
-    <input type="number" th:field="*{age}" id="age" placeholder="Age">
-    <br>
-    <label for="username">UserName</label>
-    <input type="text" th:field="*{username}" id="username" placeholder="Username">
-    <br>
-    <label for="username">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="Password">
-    <br>
-    <label for="active">Active</label>
-    <input type="checkbox" th:field="*{active}" id="active" placeholder="Active">
-    <br>
-    <label for="roles">Roles</label>
-    <input type="text" th:field="*{roles}" id="roles" placeholder="Roles">
-    <br>
+<body class="p-3 mb-2 bg-light text-dark">
+<div th:insert="~{common :: header}"></div>
 
-    <!--input type="submit" value="Update data"-->
-</form>
+<div class="container w-100">
+    <div class="row">
+        <div class="col-2 bg-white px-0 mx-0">
+            <div class="container bg-white px-0 mx-0">
+                <div class="list-group mt=3">
+                    <a href="/user" class="list-group-item list-group-item-action active" aria-current="true">User </a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <h2 class="mt-2">User information page</h2>
+             <div class="container border-top-0">
+                <h5 class="mt-2 ml-4">About user</h5>
+                <div class="container bg-white">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Age</th>
+                            <th>Email</th>
+                            <th>Role</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                            <td th:text="${user.id}"></td>
+                            <td th:text="${user.name}"></td>
+                            <td th:text="${user.lastname}"></td>
+                            <td th:text="${user.age}"></td>
+                            <td th:text="${user.username}"></td>
+                            <td th:text="${user.roles}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div th:insert="~{common :: bootstrap}"></div>
 </body>
 </html>

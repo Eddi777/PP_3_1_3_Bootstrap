@@ -6,9 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class StartController {
 
-    @GetMapping(value = {"/", "/index"})
+    @GetMapping(value = {"/", "/index", "login"})
     public String indexPage() {
-        return "index";
+        return "login";
     }
 
 }

@@ -1,16 +1,21 @@
 package ru.kata.spring.boot_security.demo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import javax.servlet.http.HttpServletRequest;
+import java.util.Collections;
 import java.util.List;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -20,10 +25,13 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping
-    public String getAllUsers(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
-        return "admin-main";
+    public String getAllUsers(@AuthenticationPrincipal User user, Model model) {
+        model.addAttribute("usersList", userService.findAll());
+        model.addAttribute("userActive", user);
+        model.addAttribute("userAdd", new User());
+        model.addAttribute("userUpdate", new User());
+
+        return "admin";
     }
 
     @GetMapping(value = "/user-delete/{id}")
@@ -32,26 +40,20 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping(value="/user-update/{id}")
-    public String updateUserForm(@PathVariable("id") Long id, Model model) {
-        User user = userService.findById(id);
-        model.addAttribute("user", user);
-        return "admin_user-update";
-    }
     @PostMapping(value = "/user-update")
     public String updateUser(User user) {
+        user.setActive(true);
         userService.save(user);
         return "redirect:/admin";
     }
 
-    @GetMapping(value="/user-create")
-    public String createUserForm(User user) {
-        return "admin_user-create";
-    }
     @PostMapping(value = "/user-create")
-    public String createUser(User user) {
-        userService.save(user);
+    public String createUser(User user ) {
+        User userFromBD = userService.userByUsername(user.getUsername());
+        if (userFromBD == null) {
+            user.setActive(true);
+            userService.save(user);
+        }
         return "redirect:/admin";
     }
-
 }

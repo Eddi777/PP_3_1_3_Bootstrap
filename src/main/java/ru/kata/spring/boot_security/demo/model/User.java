@@ -7,7 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.Arrays;
 import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -38,6 +40,11 @@ public class User implements UserDetails {
         return getRoles();
     }
 
+    public boolean isAdmin(){
+        return roles.contains(Role.ADMIN);
+    }
+
+
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -57,4 +64,5 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return isActive();
     }
+
 }

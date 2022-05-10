@@ -23,11 +23,4 @@ public class UserController {
         model.addAttribute("user", user);
         return "user";
     }
-    @GetMapping(value="/user-update")
-    public String userUpdate(User user) {
-        userService.save(user);
-        return "redirect:/user";
-    }
-
-
 }
