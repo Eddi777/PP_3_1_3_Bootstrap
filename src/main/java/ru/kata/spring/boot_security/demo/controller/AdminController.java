@@ -43,16 +43,16 @@ public class AdminController {
     @PostMapping(value = "/user-update")
     public String updateUser(User user) {
         user.setActive(true);
-        userService.save(user);
+        userService.updateUser(user);
         return "redirect:/admin";
     }
 
     @PostMapping(value = "/user-create")
     public String createUser(User user ) {
-        User userFromBD = userService.userByUsername(user.getUsername());
+        User userFromBD = userService.getUserByUsername(user.getUsername());
         if (userFromBD == null) {
             user.setActive(true);
-            userService.save(user);
+            userService.saveUser(user);
         }
         return "redirect:/admin";
     }

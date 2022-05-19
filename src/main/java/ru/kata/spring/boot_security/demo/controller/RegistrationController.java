@@ -29,14 +29,16 @@ public class RegistrationController {
     @PostMapping("/registration")
     public String addNewUser(User user, Model model) {
         System.out.println("save user");
-        User userFromBD = userService.userByUsername(user.getUsername());
+        User userFromBD = userService.getUserByUsername(user.getUsername());
         if (userFromBD != null) {
             model.addAttribute("message", "User exists !");
             return "registration";
         }
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
-        userService.save(user);
+        user.addRole(new Role("ADMIN"));
+        user.addRole(new Role("USER"));
+//        user.setRoles(Collections.singleton(Role.USER));
+        userService.saveUser(user);
         return "redirect:/user";
     }
 }
