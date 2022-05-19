@@ -9,7 +9,6 @@ import ru.kata.spring.boot_security.demo.repository.UserRepositoryImpl;
 import java.util.List;
 
 public interface UserService extends UserDetailsService {
-
     User getUserByUsername(String username);
     void saveUser(User user);
     void updateUser(User user);

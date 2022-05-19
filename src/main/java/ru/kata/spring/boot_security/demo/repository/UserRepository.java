@@ -5,7 +5,6 @@ import ru.kata.spring.boot_security.demo.model.User;
 import java.util.List;
 
 public interface UserRepository {
-
     List<User> getUsersList();
     void deleteById(long id);
     void saveUser(User user);
