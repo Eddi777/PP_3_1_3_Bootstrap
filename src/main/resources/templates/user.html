@@ -6,8 +6,20 @@
     <title>User page</title>
 </head>
 <body class="p-3 mb-2 bg-light text-dark">
-<div th:insert="~{common :: header}"></div>
-
+<div th:fragment="header">
+    <div class="container w-100 text-white bg-dark mb-2">
+        <div class="row p-2">
+            <div class="col-10">
+                <strong th:text="${userActive.getUsername()}">userName</strong> with roles: <strong th:text="${userActive.getRolesAsString()}">Roles</strong>
+            </div>
+            <div class="col-2 ms-auto">
+                <form th:action="@{/logout}" method="post">
+                    <button class="w-100 btn btn-block btn-dark text-nowrap btn-sm margin-2" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="container w-100">
     <div class="row">
         <div class="col-2 bg-white px-0 mx-0">
@@ -34,12 +46,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                            <td th:text="${user.id}"></td>
-                            <td th:text="${user.name}"></td>
-                            <td th:text="${user.lastname}"></td>
-                            <td th:text="${user.age}"></td>
-                            <td th:text="${user.username}"></td>
-                            <td th:text="${user.roles}"></td>
+                            <td th:text="${userActive.id}"></td>
+                            <td th:text="${userActive.name}"></td>
+                            <td th:text="${userActive.lastname}"></td>
+                            <td th:text="${userActive.age}"></td>
+                            <td th:text="${userActive.username}"></td>
+                            <td th:text="${userActive.getRolesAsString()}"></td>
                         </tr>
                         </tbody>
                     </table>

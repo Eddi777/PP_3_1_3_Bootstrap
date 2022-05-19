@@ -16,7 +16,7 @@
     <div class="container w-100 text-white bg-dark mb-2">
         <div class="row p-2">
             <div class="col-10">
-                <strong th:inline="text">[[${#httpServletRequest.remoteUser}]]</strong> with roles: <strong th:inline="text">[[${#httpServletRequest.getUserPrincipal().getAuthorities()}]]</strong>
+                <strong th:inline="text">[[${#httpServletRequest.remoteUser}]]</strong> with roles: <strong th:inline="text">[[${#httpServletRequest.getUserPrincipal().getRolesAsString()}]]</strong>
             </div>
             <div class="col-2 ms-auto">
                 <form th:action="@{/logout}" method="post">
